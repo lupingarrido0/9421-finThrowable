@@ -14,11 +14,10 @@ public class Interface {
     private final int DEFAULT_COLUMNS = 70;
     private final int DEFAULT_ROWS = 10;
     private final String menu = """
-            1. Load file containing the graph's data
-            2. Perform Depth First Traversal of the Graph
-            3. Perform Breadth First Traversal of the Graph
-            4. Show the shortest path from one vertext to another
-            5. Exit
+            1. Perform Depth First Traversal of the Graph
+            2. Perform Breadth First Traversal of the Graph
+            3. Show the shortest path from one vertex to another
+            4. Exit
             """;
     private final JLabel fileLabel = new JLabel("Choose a File.");
 
@@ -36,11 +35,10 @@ public class Interface {
     private final JButton button1 = new JButton("Option 1");
     private final JButton button2 = new JButton("Option 2");
     private final JButton button3 = new JButton("Option 3");
-    private final JButton button4 = new JButton("Option 4");
     private final JButton button5 = new JButton("Exit");
     private final JButton clearButton = new JButton("Clear");
     private final JButton fileButton = new JButton("File");
-    private final JComponent[] menuComponents = { button1, button2, button3, button4, clearButton, button5 };
+    private final JComponent[] menuComponents = { button1, button2, button3, clearButton, button5 };
     private final JComponent[] fileChooserComponents = { fileLabel, fileButton };
 
     // Accessor methods
@@ -84,6 +82,7 @@ public class Interface {
         for (var button : menuComponents) menuButtonsPanel.add(button); // menu buttons
 
         outputPanel.add(outputPane);    // output panel
+        outputText.setEditable(false);
     }
 
     private static void createAndShowGUI() {
