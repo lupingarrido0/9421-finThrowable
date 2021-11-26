@@ -28,4 +28,12 @@ public class Graph {
     public void setMatrix(int[][] adjacencyMatrix) {
         this.adjacencyMatrix = adjacencyMatrix;
     }
+
+    public boolean isDirected() {
+        return isDirected;
+    }
+
+    public void setDirected(boolean directed) {
+        isDirected = directed;
+    }
 }
