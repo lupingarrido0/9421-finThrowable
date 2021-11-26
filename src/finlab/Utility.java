@@ -8,16 +8,11 @@ public class Utility {
         return null;
     }
 
-    private void showMenu() {
-        System.out.print("""
-                """);
-    }
-
-    private static StringBuilder depthTraversal(int[][] matrix, List<String> vertices) {
+    private static StringBuilder depthTraversal(String startingVertex, int[][] matrix, List<String> vertices) {
         return null;
     }
 
-    private static StringBuilder breadthTraversal(int[][] matrix, List<String> vertices) {
+    private static StringBuilder breadthTraversal(String startingVertex, int[][] matrix, List<String> vertices) {
         return null;
     }
 
