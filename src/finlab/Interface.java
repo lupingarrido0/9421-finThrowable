@@ -6,7 +6,6 @@ import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
@@ -41,7 +40,7 @@ public class Interface {
     private final JButton button5 = new JButton("Exit");
     private final JButton clearButton = new JButton("Clear");
     private final JButton fileButton = new JButton("File");
-    private final JComponent[] menuComponents = { button1, button2, button3, button4, button5, clearButton };
+    private final JComponent[] menuComponents = { button1, button2, button3, button4, clearButton, button5 };
     private final JComponent[] fileChooserComponents = { fileLabel, fileButton };
 
     // Accessor methods
@@ -65,6 +64,14 @@ public class Interface {
                 file = fileChooser.getSelectedFile();
                 fileLabel.setText(fileChooser.getName(file));
             }
+        });
+
+        clearButton.addActionListener((ActionEvent e) -> {
+            outputText.setText("");
+        });
+
+        button5.addActionListener((ActionEvent e) -> {
+            System.exit(0);
         });
 
         // Populate the panels
