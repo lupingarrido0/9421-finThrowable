@@ -5,10 +5,12 @@ import java.util.List;
 public class Graph {
     private int[][] adjacencyMatrix;
     private List<String> vertexList;
+    private boolean isDirected;
 
-    Graph(int[][] adjacencyMatrix, List<String> vertexList) {
+    Graph(int[][] adjacencyMatrix, List<String> vertexList, boolean isDirected) {
         this.adjacencyMatrix = adjacencyMatrix;
         this.vertexList = vertexList;
+        this.isDirected = isDirected;
     }
 
     public List<String> getVertexList() {
