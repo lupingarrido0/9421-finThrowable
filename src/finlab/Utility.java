@@ -8,15 +8,20 @@ public class Utility {
         return null;
     }
 
-    private static StringBuilder depthTraversal(String startingVertex, int[][] matrix, List<String> vertices) {
+    private StringBuilder depthTraversal
+                (String startingVertex, int[][] matrix, List<String> vertices)
+            throws InvalidVertexException {
         return null;
     }
 
-    private static StringBuilder breadthTraversal(String startingVertex, int[][] matrix, List<String> vertices) {
+    private StringBuilder breadthTraversal
+            (String startingVertex, int[][] matrix, List<String> vertices)
+            throws InvalidVertexException {
+
         return null;
     }
 
-    private static StringBuilder determineShortestPath(int[][] matrix, List<String> vertices) {
+    private StringBuilder determineShortestPath(int[][] matrix, List<String> vertices) {
         return null;
     }
 }
