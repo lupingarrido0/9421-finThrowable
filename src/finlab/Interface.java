@@ -48,12 +48,12 @@ public class Interface {
     public JPanel getOutputPanel() { return outputPanel; }
 
     // File Chooser segment
-    private final JFileChooser fileChooser = new JFileChooser();
+    private final JFileChooser fileChooser = new JFileChooser(new File("res"));
     private File file;
 
     Interface() {
 
-        redirectSystemStreams();    // redirect console to textfield
+        redirectSystemStreams();    // redirect console to text field
 
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fileButton.addActionListener((ActionEvent e) -> {
