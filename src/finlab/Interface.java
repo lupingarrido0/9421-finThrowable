@@ -42,7 +42,7 @@ public class Interface {
     private final JButton button3 = new JButton("Option 3");
     private final JButton button5 = new JButton("Exit");
     private final JButton clearButton = new JButton("Clear");
-    private final JButton fileButton = new JButton("File");
+    private final JButton fileButton = new JButton("Load File");
     private final JComponent[] menuComponents = { button1, button2, button3, clearButton, button5 };
     private final JComponent[] fileChooserComponents = { fileLabel, fileButton };
 
@@ -85,8 +85,11 @@ public class Interface {
                 System.out.println("Vertices: " + Arrays.toString(graph.getVertexList().toArray()));
                 System.out.println("\nMatrix: \n" +
                         Arrays.deepToString(graph.getMatrix()).replace("], ", "]\n"));
-            } catch (InvalidDataFileException | NullPointerException exception) {
+            }  catch (InvalidVertexException | InvalidDataFileException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(),
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            }  catch (NullPointerException npe) {
+                JOptionPane.showMessageDialog(null, "Invalid CSV File.",
                         "Error", JOptionPane.WARNING_MESSAGE);
             }
         });
@@ -109,10 +112,10 @@ public class Interface {
                 utility.depthTraversal(input, graph.getMatrix(), graph.getVertexList());
 
 
-            } catch (InvalidVertexException exception) {
+            }  catch (InvalidVertexException | InvalidDataFileException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(),
                         "Error", JOptionPane.WARNING_MESSAGE);
-            } catch (InvalidDataFileException | NullPointerException exception) {
+            }  catch (NullPointerException npe) {
                 JOptionPane.showMessageDialog(null, "Invalid CSV File.",
                         "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -128,11 +131,12 @@ public class Interface {
                     throw new InvalidVertexException("Vertex " + input + " does not exist!");
 
                 System.out.println("\nStarting vertex: " + input);
+                System.out.println("Breadth First Traversal of the Graph: ");
                 utility.breadthTraversal(input, graph.getMatrix(), graph.getVertexList());
-            } catch (InvalidVertexException exception) {
+            } catch (InvalidVertexException | InvalidDataFileException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(),
                         "Error", JOptionPane.WARNING_MESSAGE);
-            } catch (InvalidDataFileException | NullPointerException exception) {
+            }  catch (NullPointerException npe) {
                 JOptionPane.showMessageDialog(null, "Invalid CSV File.",
                         "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -155,11 +159,11 @@ public class Interface {
                 System.out.println("Determining shortest path via the Djikstra's Algorithm: ");
                 utility.determineShortestPath(graph.getMatrix(), index, graph.getVertexList());
                 System.out.println();
-            } catch (InvalidVertexException exception) {
+            }  catch (InvalidVertexException | InvalidDataFileException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(),
                         "Error", JOptionPane.WARNING_MESSAGE);
-            } catch (InvalidDataFileException | NullPointerException exception) {
-                JOptionPane.showMessageDialog(null, "Invalid CSV file.",
+            }  catch (NullPointerException npe) {
+                JOptionPane.showMessageDialog(null, "Invalid CSV File.",
                         "Error", JOptionPane.WARNING_MESSAGE);
             }
         });
