@@ -5,9 +5,8 @@ import java.io.FileReader;
 import java.util.*;
 
 public class Utility {
-    private List<String> vertices = new ArrayList<>();
 
-    public Graph parseCSV(File file) {
+    public Graph parseCSV(File file) throws InvalidDataFileException {
         Graph graph = new Graph();
         Integer[][] adjacencyMatrix;
         List<String> vertices = new ArrayList<>();
@@ -38,18 +37,20 @@ public class Utility {
 
         }
 
+        // Check for errors
+        try {
+            if (vertices.size() != csv.get(0).size());
+        } catch (Exception e) {
+            throw new InvalidDataFileException("Invalid CSV File.");
+        }
+
         // Construct the matrix
-        adjacencyMatrix = csv.stream()
-                .map(l -> l.stream().toArray(Integer[]::new))
-                .toArray(Integer[][]::new);
-        /*
-        adjacencyMatrix = new int[temp.length][];
-
-        for (int i = 0; i < temp.length; i++)
-            for (int j = 0; j < temp.length; j++)
-                adjacencyMatrix[i][j] = Integer.parseInt(temp[i][j]);
-
-         */
+        List<Integer[]> list = new ArrayList<>();
+        for (List<Integer> l : csv) {
+            Integer[] integers = l.toArray(Integer[]::new);
+            list.add(integers);
+        }
+        adjacencyMatrix = list.toArray(new Integer[0][]);
 
         graph.setMatrix(adjacencyMatrix);
         graph.setVertexList(vertices);
@@ -70,7 +71,7 @@ public class Utility {
         return null;
     }
 
-    static void determineShortestPath(Integer[][] matrix, int index, List<String> vertices) {
+     void determineShortestPath(Integer[][] matrix, int index, List<String> vertices) {
         StringBuilder output = new StringBuilder();
         /*
         Scanner a = new Scanner(System.in);

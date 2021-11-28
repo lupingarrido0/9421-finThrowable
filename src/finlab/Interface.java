@@ -9,18 +9,21 @@ import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Interface {
 
-    private final int DEFAULT_COLUMNS = 70;
-    private final int DEFAULT_ROWS = 10;
+    private final int DEFAULT_COLUMNS = 75;
+    private final int DEFAULT_ROWS = 20;
     private final String menu = """
             1. Perform Depth First Traversal of the Graph
             2. Perform Breadth First Traversal of the Graph
             3. Show the shortest path from one vertex to another
             4. Exit
             """;
+    private String infoMessage;
+    private String graphType = "UNDIRECTED";
     private final JLabel fileLabel = new JLabel("Choose a File.");
 
     // MAIN PANELS
@@ -29,7 +32,7 @@ public class Interface {
     private final JPanel menuButtonsPanel = new JPanel();
     private final JPanel outputPanel = new JPanel();
 
-    private final JTextArea menuText = new JTextArea(DEFAULT_ROWS - 4, DEFAULT_COLUMNS);
+    private final JTextArea menuText = new JTextArea(DEFAULT_ROWS - 15, DEFAULT_COLUMNS);
     private final JTextArea outputText = new JTextArea(DEFAULT_ROWS, DEFAULT_COLUMNS);
     private final JScrollPane menuPane = new JScrollPane(menuText);
     private final JScrollPane outputPane = new JScrollPane(outputText);
@@ -60,13 +63,31 @@ public class Interface {
 
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fileButton.addActionListener((ActionEvent e) -> {
+            outputText.setText("");
             int returnVal = fileChooser.showOpenDialog(fileChooserPanel);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 file = fileChooser.getSelectedFile();
                 fileLabel.setText(fileChooser.getName(file));
             }
 
-            graph = utility.parseCSV(file);
+            try {
+                graph = utility.parseCSV(file);
+                if (graph.isDirected()) graphType = "DIRECTED";
+                infoMessage = file.getName() + " loaded successfully." +
+                        "\n\nFile type: CSV" +
+                        "\nGraph type: " + graphType;
+
+                JOptionPane.showMessageDialog(null,
+                        infoMessage, "Information",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                System.out.println("Vertices: " + Arrays.toString(graph.getVertexList().toArray()));
+                System.out.println("\nMatrix: \n" +
+                        Arrays.deepToString(graph.getMatrix()).replace("], ", "]\n"));
+            } catch (InvalidDataFileException exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage(),
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            }
         });
 
         clearButton.addActionListener((ActionEvent e) -> {
@@ -74,26 +95,27 @@ public class Interface {
         });
 
         button3.addActionListener((ActionEvent e) -> {
-            outputText.setText("");
+            try {
+                if (file == null) throw new InvalidDataFileException("No file loaded.");
 
-            int input = Integer.parseInt(JOptionPane.showInputDialog("Input starting vertex: "));
-            /*
-            List<String> vertices = new ArrayList<>();
-            vertices.add("A");
-            vertices.add("B");
-            vertices.add("C");
-            vertices.add("D");
-            vertices.add("E");
-            vertices.add("F");
-            int[][] adjacencyMatrix = { { 0, 4, 3, 0, 0, 0},
-                    { 4, 0, 1, 2, 0, 0},
-                    { 3, 1, 0, 4, 0, 0},
-                    { 0, 2, 4, 0, 2, 0},
-                    { 0, 0, 0, 2, 0, 6},
-                    { 0, 0, 0, 0, 6, 0},};
+                int index;
 
-             */
-            utility.determineShortestPath(graph.getMatrix(), input, graph.getVertexList());
+                String input = JOptionPane.showInputDialog("Input starting vertex: ");
+
+                if (!graph.getVertexList().contains(input))
+                    throw new InvalidVertexException("Vertex " + input + " does not exist!");
+
+                index = graph.getVertexList().indexOf(input);
+
+                System.out.println("\nDetermining shortest path via the Djikstra's Algorithm: ");
+                utility.determineShortestPath(graph.getMatrix(), index, graph.getVertexList());
+            } catch (InvalidVertexException exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage(),
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            } catch (InvalidDataFileException invalidDataFileException) {
+                JOptionPane.showMessageDialog(null, invalidDataFileException.getMessage(),
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            }
         });
 
         button5.addActionListener((ActionEvent e) -> {
