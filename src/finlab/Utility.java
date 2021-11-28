@@ -34,15 +34,10 @@ public class Utility {
             }
 
         } catch (Exception ignored) {
-
+            throw new InvalidDataFileException("Invalid CSV file.");
         }
 
-        // Check for errors
-        try {
-            if (vertices.size() != csv.get(0).size());
-        } catch (Exception e) {
-            throw new InvalidDataFileException("Invalid CSV File.");
-        }
+
 
         // Construct the matrix
         List<Integer[]> list = new ArrayList<>();
@@ -52,13 +47,17 @@ public class Utility {
         }
         adjacencyMatrix = list.toArray(new Integer[0][]);
 
+        // Check for errors
+        if (vertices.size() != csv.get(0).size())
+            throw new InvalidDataFileException("Invalid CSV file.");
+
         graph.setMatrix(adjacencyMatrix);
         graph.setVertexList(vertices);
 
         return graph;
     }
 
-    private StringBuilder depthTraversal (String startingVertex, int[][] matrix, List<String> vertices) throws InvalidVertexException {
+    public void depthTraversal (String startingVertex, Integer[][] matrix, List<String> vertices) throws InvalidVertexException {
         List<String> vertexList = new ArrayList<>();
         StringBuilder result = new StringBuilder();
         Stack<String> stack = new Stack<>();
@@ -80,19 +79,52 @@ public class Utility {
                 }
             }
         }
+
         String s = stack.toString();
         result.append(s);
-        return result;
+
+        System.out.println(result);
     }
 
-    private StringBuilder breadthTraversal
-            (String startingVertex, int[][] matrix, List<String> vertices)
+    public void breadthTraversal
+            (String startingVertex, Integer[][] matrix, List<String> vertices)
             throws InvalidVertexException {
 
-        return null;
+        int inputIndex = vertices.indexOf(startingVertex);
+        StringBuilder returnVal = new StringBuilder();
+
+        // visited array
+        boolean[] visited = new boolean[vertices.size()];
+        Arrays.fill(visited, false);
+
+        // Create a queue for BFT
+        Queue<String> queue = new Queue<>();
+
+        // Mark the current node as visited and enqueue it
+        visited[inputIndex] = true;
+        queue.enqueue(startingVertex);
+
+        int visitedVertexIndex;
+        while (!queue.isEmpty()) {
+            visitedVertexIndex = vertices.indexOf(queue.poll());
+
+            // Append to StringBuilder
+            returnVal.append(vertices.get(visitedVertexIndex));
+
+            // For every adjacent vertex
+            for (int i = 0; i < vertices.size(); i++) {
+                if (matrix[visitedVertexIndex][i] != -1 && (!visited[i])) {
+                    queue.enqueue(vertices.get(i));
+                    visited[i] = true;
+                }
+            }
+        }
+
+        System.out.println(returnVal);
     }
 
-     void determineShortestPath(Integer[][] matrix, int index, List<String> vertices) {
+
+    public void determineShortestPath(Integer[][] matrix, int index, List<String> vertices) {
 
         int nVertices = matrix[0].length;
 

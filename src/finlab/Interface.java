@@ -73,6 +73,7 @@ public class Interface {
             try {
                 graph = utility.parseCSV(file);
                 if (graph.isDirected()) graphType = "DIRECTED";
+                        else graphType = "UNDIRECTED";
                 infoMessage = file.getName() + " loaded successfully." +
                         "\n\nFile type: CSV" +
                         "\nGraph type: " + graphType;
@@ -84,7 +85,7 @@ public class Interface {
                 System.out.println("Vertices: " + Arrays.toString(graph.getVertexList().toArray()));
                 System.out.println("\nMatrix: \n" +
                         Arrays.deepToString(graph.getMatrix()).replace("], ", "]\n"));
-            } catch (InvalidDataFileException exception) {
+            } catch (InvalidDataFileException | NullPointerException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(),
                         "Error", JOptionPane.WARNING_MESSAGE);
             }
@@ -92,6 +93,49 @@ public class Interface {
 
         clearButton.addActionListener((ActionEvent e) -> {
             outputText.setText("");
+        });
+
+        button1.addActionListener((ActionEvent e) -> {
+            try {
+                if (file == null) throw new InvalidDataFileException("No file loaded.");
+
+                String input = JOptionPane.showInputDialog("Input starting vertex: ");
+
+                if (!graph.getVertexList().contains(input))
+                    throw new InvalidVertexException("Vertex " + input + " does not exist!");
+
+                System.out.println("\nStarting vertex: " + input);
+
+                utility.depthTraversal(input, graph.getMatrix(), graph.getVertexList());
+
+
+            } catch (InvalidVertexException exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage(),
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            } catch (InvalidDataFileException | NullPointerException exception) {
+                JOptionPane.showMessageDialog(null, "Invalid CSV File.",
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        button2.addActionListener((ActionEvent e) -> {
+            try {
+                if (file == null) throw new InvalidDataFileException("No file loaded.");
+
+                String input = JOptionPane.showInputDialog("Input starting vertex: ");
+
+                if (!graph.getVertexList().contains(input))
+                    throw new InvalidVertexException("Vertex " + input + " does not exist!");
+
+                System.out.println("\nStarting vertex: " + input);
+                utility.breadthTraversal(input, graph.getMatrix(), graph.getVertexList());
+            } catch (InvalidVertexException exception) {
+                JOptionPane.showMessageDialog(null, exception.getMessage(),
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            } catch (InvalidDataFileException | NullPointerException exception) {
+                JOptionPane.showMessageDialog(null, "Invalid CSV File.",
+                        "Error", JOptionPane.WARNING_MESSAGE);
+            }
         });
 
         button3.addActionListener((ActionEvent e) -> {
@@ -114,8 +158,8 @@ public class Interface {
             } catch (InvalidVertexException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(),
                         "Error", JOptionPane.WARNING_MESSAGE);
-            } catch (InvalidDataFileException invalidDataFileException) {
-                JOptionPane.showMessageDialog(null, invalidDataFileException.getMessage(),
+            } catch (InvalidDataFileException | NullPointerException exception) {
+                JOptionPane.showMessageDialog(null, "Invalid CSV file.",
                         "Error", JOptionPane.WARNING_MESSAGE);
             }
         });
