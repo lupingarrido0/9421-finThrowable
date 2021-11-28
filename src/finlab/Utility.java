@@ -72,22 +72,6 @@ public class Utility {
     }
 
      void determineShortestPath(Integer[][] matrix, int index, List<String> vertices) {
-        StringBuilder output = new StringBuilder();
-        /*
-        Scanner a = new Scanner(System.in);
-        System.out.println("Enter the starting vertex");
-        String input = a.nextLine();
-        int c = 0;
-        int index =0;
-        for (String v: vertices){
-            if (input.equals(v)){
-                index = c;
-            }
-            c++;
-        }
-
-         */
-
 
         int nVertices = matrix[0].length;
 
@@ -164,57 +148,22 @@ public class Utility {
             if (vertexIndex != index)
             {
                 printPath(vertexIndex, parents, vertices);
-                // System.out.println();
             }
         }
     }
 
-/*
-    // Function to print shortest path
-    // from source to currentVertex
-    // using parents array
-    private static StringBuilder getPath(int currentVertex, int[] parents, List<String> vertices) {
-        StringBuilder result = new StringBuilder();
-        // Base case : Source node has
-        // been processed
-        if (currentVertex == -1)
-        {
-            return result;
-        }
-        getPath(parents[currentVertex], parents, vertices);
-        result.append(vertices.get(currentVertex));
-        result.append(" ");
-    }
-
- */
     private static void printPath(int currentVertex, int[] parents, List<String> vertices) {
         // Base case : Source node has
         // been processed
         if (currentVertex == -1)
         {
+            System.out.println();
             return;
         }
         printPath(parents[currentVertex], parents, vertices);
-        System.out.print(currentVertex + " ");
+        System.out.print(vertices.get(currentVertex) + " ");
     }
-    // Driver Code
-    public static void main(String[] args)
-    {
-        List<String> vertices = new ArrayList<>();
-        vertices.add("A");
-        vertices.add("B");
-        vertices.add("C");
-        vertices.add("D");
-        vertices.add("E");
-        vertices.add("F");
-        int[][] adjacencyMatrix = { { 0, 4, 3, 0, 0, 0},
-                { 4, 0, 1, 2, 0, 0},
-                { 3, 1, 0, 4, 0, 0},
-                { 0, 2, 4, 0, 2, 0},
-                { 0, 0, 0, 2, 0, 6},
-                { 0, 0, 0, 0, 6, 0},};
-        // System.out.print(determineShortestPath(adjacencyMatrix, 0, vertices ));
-    }
+
 }
 
 
