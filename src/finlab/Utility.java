@@ -1,11 +1,60 @@
 package finlab;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.*;
 
 public class Utility {
     private List<String> vertices = new ArrayList<>();
 
-    private int[][] parseCSV() {
-        return null;
+    public Graph parseCSV(File file) {
+        Graph graph = new Graph();
+        Integer[][] adjacencyMatrix;
+        List<String> vertices = new ArrayList<>();
+        List<List<Integer>> csv = new ArrayList<>();
+        List<Integer> csvIntTemp;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String[] values;
+
+            // Segment to determine if Graph is Directed or Undirected
+            // New Graph Instances are Undirected by default
+            String line = br.readLine();    // read first line
+            if (line.contains("DIRECTED") || line.contains("directed")) graph.setDirected(true);
+
+            line = br.readLine();   // read second line
+            values = line.split(",");   // read the vertex list
+            vertices = Arrays.asList(values);
+
+            // succeeding lines in csv are now the adjacency matrix itself
+            while((line = br.readLine()) != null) {
+                csvIntTemp = new ArrayList<>();
+                values = line.split(",");
+                for (String x : values) csvIntTemp.add(Integer.parseInt(x));
+                csv.add(csvIntTemp);
+            }
+
+        } catch (Exception ignored) {
+
+        }
+
+        // Construct the matrix
+        adjacencyMatrix = csv.stream()
+                .map(l -> l.stream().toArray(Integer[]::new))
+                .toArray(Integer[][]::new);
+        /*
+        adjacencyMatrix = new int[temp.length][];
+
+        for (int i = 0; i < temp.length; i++)
+            for (int j = 0; j < temp.length; j++)
+                adjacencyMatrix[i][j] = Integer.parseInt(temp[i][j]);
+
+         */
+
+        graph.setMatrix(adjacencyMatrix);
+        graph.setVertexList(vertices);
+
+        return graph;
     }
 
     private StringBuilder depthTraversal
@@ -21,7 +70,7 @@ public class Utility {
         return null;
     }
 
-    static void determineShortestPath(int[][] matrix, int index, List<String> vertices) {
+    static void determineShortestPath(Integer[][] matrix, int index, List<String> vertices) {
         StringBuilder output = new StringBuilder();
         /*
         Scanner a = new Scanner(System.in);
@@ -147,7 +196,6 @@ public class Utility {
         printPath(parents[currentVertex], parents, vertices);
         System.out.print(currentVertex + " ");
     }
-
     // Driver Code
     public static void main(String[] args)
     {

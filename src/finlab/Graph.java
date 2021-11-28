@@ -5,22 +5,26 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Graph {
-    private int[][] adjacencyMatrix;
+    private Integer[][] adjacencyMatrix;
     private List<String> vertexList = new ArrayList<>();
     private boolean isDirected;
     private int numEdges;
 
-    Graph(int[][] adjacencyMatrix, List<String> vertexList, boolean isDirected) {
+    Graph(Integer[][] adjacencyMatrix, List<String> vertexList, boolean isDirected) {
         this.adjacencyMatrix = adjacencyMatrix;
         this.vertexList = vertexList;
         this.isDirected = isDirected;
+    }
+
+    Graph() {
+        this(null, null, false);
     }
 
     public List<String> getVertexList() {
         return vertexList;
     }
 
-    public int[][] getMatrix() {
+    public Integer[][] getMatrix() {
         return adjacencyMatrix;
     }
 
@@ -28,7 +32,7 @@ public class Graph {
         this.vertexList = vertexList;
     }
 
-    public void setMatrix(int[][] adjacencyMatrix) {
+    public void setMatrix(Integer[][] adjacencyMatrix) {
         this.adjacencyMatrix = adjacencyMatrix;
     }
 
@@ -95,7 +99,7 @@ public class Graph {
 
     private void expandCapacity() {
         int size = vertexList.size() * 2;
-        int[][] largerAdjacencyMatrix = new int[size][size];
+        Integer[][] largerAdjacencyMatrix = new Integer[size][size];
 
         for (int i = 0; i < getNumberOfVertices(); i++) {
             for (int j = 0; i < getNumberOfVertices(); i++) {

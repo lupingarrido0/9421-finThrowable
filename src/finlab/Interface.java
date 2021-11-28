@@ -52,9 +52,10 @@ public class Interface {
     // File Chooser segment
     private final JFileChooser fileChooser = new JFileChooser(new File("res"));
     private File file;
+    private Graph graph;
 
     Interface() {
-
+        Utility utility = new Utility();
         redirectSystemStreams();    // redirect console to text field
 
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -64,6 +65,8 @@ public class Interface {
                 file = fileChooser.getSelectedFile();
                 fileLabel.setText(fileChooser.getName(file));
             }
+
+            graph = utility.parseCSV(file);
         });
 
         clearButton.addActionListener((ActionEvent e) -> {
@@ -71,6 +74,10 @@ public class Interface {
         });
 
         button3.addActionListener((ActionEvent e) -> {
+            outputText.setText("");
+
+            int input = Integer.parseInt(JOptionPane.showInputDialog("Input starting vertex: "));
+            /*
             List<String> vertices = new ArrayList<>();
             vertices.add("A");
             vertices.add("B");
@@ -84,7 +91,9 @@ public class Interface {
                     { 0, 2, 4, 0, 2, 0},
                     { 0, 0, 0, 2, 0, 6},
                     { 0, 0, 0, 0, 6, 0},};
-            Utility.determineShortestPath(adjacencyMatrix, 0, vertices);
+
+             */
+            utility.determineShortestPath(graph.getMatrix(), input, graph.getVertexList());
         });
 
         button5.addActionListener((ActionEvent e) -> {
