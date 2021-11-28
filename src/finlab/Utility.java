@@ -17,9 +17,9 @@ public class Utility {
             String[] values;
 
             // Segment to determine if Graph is Directed or Undirected
-            // New Graph Instances are Undirected by default
+            // New Graph Instances are directed by default
             String line = br.readLine();    // read first line
-            if (line.contains("DIRECTED") || line.contains("directed")) graph.setDirected(true);
+            if (line.contains("UN") || line.contains("un") || line.contains("Un")) graph.setDirected(false);
 
             line = br.readLine();   // read second line
             values = line.split(",");   // read the vertex list

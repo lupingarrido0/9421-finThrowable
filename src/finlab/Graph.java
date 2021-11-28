@@ -17,7 +17,7 @@ public class Graph {
     }
 
     Graph() {
-        this(null, null, false);
+        this(null, null, true);
     }
 
     public List<String> getVertexList() {
