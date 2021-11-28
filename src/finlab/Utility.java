@@ -201,7 +201,7 @@ public class Utility {
         {
             if (vertexIndex != index)
             {
-                System.out.print("\n" + vertices(index) + " -> ");
+                System.out.print("\n" + vertices.get(index) + " -> ");
                 System.out.print(vertices.get(vertexIndex) + " \t\t ");
                 System.out.print(shortestDistances[vertexIndex] + "\t\t");
                 printPath(vertexIndex, parents, vertices);
