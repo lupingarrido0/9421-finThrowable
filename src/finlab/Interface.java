@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Interface {
 
@@ -66,6 +68,23 @@ public class Interface {
 
         clearButton.addActionListener((ActionEvent e) -> {
             outputText.setText("");
+        });
+
+        button3.addActionListener((ActionEvent e) -> {
+            List<String> vertices = new ArrayList<>();
+            vertices.add("A");
+            vertices.add("B");
+            vertices.add("C");
+            vertices.add("D");
+            vertices.add("E");
+            vertices.add("F");
+            int[][] adjacencyMatrix = { { 0, 4, 3, 0, 0, 0},
+                    { 4, 0, 1, 2, 0, 0},
+                    { 3, 1, 0, 4, 0, 0},
+                    { 0, 2, 4, 0, 2, 0},
+                    { 0, 0, 0, 2, 0, 6},
+                    { 0, 0, 0, 0, 6, 0},};
+            Utility.determineShortestPath(adjacencyMatrix, 0, vertices);
         });
 
         button5.addActionListener((ActionEvent e) -> {

@@ -106,7 +106,6 @@ public class Utility {
             }
         }
 
-        String result;
         int nVertices1 = shortestDistances.length;
         for (int vertexIndex = 0;
              vertexIndex < nVertices1;
@@ -115,10 +114,9 @@ public class Utility {
             if (vertexIndex != index)
             {
                 printPath(vertexIndex, parents, vertices);
-                System.out.println();
+                // System.out.println();
             }
         }
-
     }
 
 /*
@@ -140,7 +138,6 @@ public class Utility {
 
  */
     private static void printPath(int currentVertex, int[] parents, List<String> vertices) {
-
         // Base case : Source node has
         // been processed
         if (currentVertex == -1)
@@ -167,7 +164,7 @@ public class Utility {
                 { 0, 2, 4, 0, 2, 0},
                 { 0, 0, 0, 2, 0, 6},
                 { 0, 0, 0, 0, 6, 0},};
-        determineShortestPath(adjacencyMatrix, 0, vertices );
+        // System.out.print(determineShortestPath(adjacencyMatrix, 0, vertices ));
     }
 }
 
