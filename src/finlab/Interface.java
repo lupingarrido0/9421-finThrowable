@@ -107,8 +107,10 @@ public class Interface {
 
                 index = graph.getVertexList().indexOf(input);
 
-                System.out.println("\nDetermining shortest path via the Djikstra's Algorithm: ");
+                System.out.println("\nStarting vertex: " + input);
+                System.out.println("Determining shortest path via the Djikstra's Algorithm: ");
                 utility.determineShortestPath(graph.getMatrix(), index, graph.getVertexList());
+                System.out.println();
             } catch (InvalidVertexException exception) {
                 JOptionPane.showMessageDialog(null, exception.getMessage(),
                         "Error", JOptionPane.WARNING_MESSAGE);
