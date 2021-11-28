@@ -58,10 +58,31 @@ public class Utility {
         return graph;
     }
 
-    private StringBuilder depthTraversal
-                (String startingVertex, int[][] matrix, List<String> vertices)
-            throws InvalidVertexException {
-        return null;
+    private StringBuilder depthTraversal (String startingVertex, int[][] matrix, List<String> vertices) throws InvalidVertexException {
+        List<String> vertexList = new ArrayList<>();
+        StringBuilder result = new StringBuilder();
+        Stack<String> stack = new Stack<>();
+        List<String> tempVerList = new ArrayList<>();
+        
+        if(startingVertex.isEmpty()) {
+            System.out.println("Vertex is empty.");
+        }else{
+            stack.push(startingVertex);
+        }
+
+        for (int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[i].length;j++){
+                if(Double.isFinite(matrix[i][j])){
+                    if(tempVerList.get(i)!=vertexList.get(j)){
+                        stack.push(vertexList.get(j));
+                    }
+                    stack.push(vertexList.get(i));
+                }
+            }
+        }
+        String s = stack.toString();
+        result.append(s);
+        return result;
     }
 
     private StringBuilder breadthTraversal
