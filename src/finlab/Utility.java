@@ -57,33 +57,43 @@ public class Utility {
         return graph;
     }
 
-    public void depthTraversal (String startingVertex, Integer[][] matrix, List<String> vertices) throws InvalidVertexException {
-        List<String> vertexList = new ArrayList<>();
+    public void depthTraversal
+    (String startingVertex, Integer[][] matrix, List<String> vertices)
+    throws InvalidVertexException {
         StringBuilder result = new StringBuilder();
-        Stack<String> stack = new Stack<>();
-        List<String> tempVerList = new ArrayList<>();
-        
-        if(startingVertex.isEmpty()) {
-            System.out.println("Vertex is empty.");
-        }else{
-            stack.push(startingVertex);
+        StringBuilder resultFin = new StringBuilder();
+        boolean[] visited = new boolean[vertices.size()];
+        Arrays.fill(visited, false);
+        int b=0, count;
+        for (String a : vertices){
+            if(!a.equals(startingVertex)){
+                b++;
+            }
+            if(a.equals(startingVertex)){
+                count = b;
+                result.append(vertices.get(count));
+                visited[count] = true;
+            }
         }
 
-        for (int i=0;i<matrix.length;i++){
-            for(int j=0;j<matrix[i].length;j++){
-                if(Double.isFinite(matrix[i][j])){
-                    if(tempVerList.get(i)!=vertexList.get(j)){
-                        stack.push(vertexList.get(j));
-                    }
-                    stack.push(vertexList.get(i));
+        for (int i=0;i < vertices.size();i++) {
+            for (int j=0;j < vertices.size();j++){
+                if (matrix[i][j]!=-1 && (!visited[j])){
+                    result.append(vertices.get(j));
+                    visited[j]=true;
                 }
             }
         }
 
-        String s = stack.toString();
-        result.append(s);
+        String string = result.toString();
+        String fin = "";
+        for (int i=0; i < string.length(); i++){
+            if (!fin.contains(String.valueOf(string.charAt(i)))){
+                fin += String.valueOf(string.charAt(i));
+            }
+        }
 
-        System.out.println(result);
+        System.out.println(fin);
     }
 
     public void breadthTraversal
