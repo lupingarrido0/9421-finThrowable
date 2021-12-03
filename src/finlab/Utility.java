@@ -58,13 +58,12 @@ public class Utility {
     }
 
     public void depthTraversal
-    (String startingVertex, Integer[][] matrix, List<String> vertices)
-    throws InvalidVertexException {
+            (String startingVertex, Integer[][] matrix, List<String> vertices)
+            throws InvalidVertexException {
         StringBuilder result = new StringBuilder();
-        StringBuilder resultFin = new StringBuilder();
-        boolean[] visited = new boolean[vertices.size()];
-        Arrays.fill(visited, false);
-        int b=0, count;
+        boolean[] visitedVertices = new boolean[matrix.length];
+
+        int b=0, count=0;
         for (String a : vertices){
             if(!a.equals(startingVertex)){
                 b++;
@@ -72,28 +71,31 @@ public class Utility {
             if(a.equals(startingVertex)){
                 count = b;
                 result.append(vertices.get(count));
-                visited[count] = true;
+                visitedVertices[count] = true;
             }
         }
 
-        for (int i=0;i < vertices.size();i++) {
-            for (int j=0;j < vertices.size();j++){
-                if (matrix[i][j]!=-1 && (!visited[j])){
-                    result.append(vertices.get(j));
-                    visited[j]=true;
+        int counter = 1;
+        while (counter < vertices.size()) {
+            for (int j = 0; j < vertices.size(); j++) {
+                if (matrix[count][j] != -1) {
+                    if (!visitedVertices[j]) {
+                        result.append(vertices.get(j));
+                        visitedVertices[j] = true;
+                        count = j;
+                        counter++;
+                        j=0;
+                    }
                 }
             }
-        }
 
-        String string = result.toString();
-        String fin = "";
-        for (int i=0; i < string.length(); i++){
-            if (!fin.contains(String.valueOf(string.charAt(i)))){
-                fin += String.valueOf(string.charAt(i));
+            count++;
+            if (count > vertices.size()-1){
+                count=0;
             }
-        }
 
-        System.out.println(fin);
+        }
+        System.out.print(result);
     }
 
     public void breadthTraversal
