@@ -6,36 +6,7 @@ import java.util.*;
 
 public class Utility {
     
-    /**
-     * Algorithm:
-     Declare new Graph
-     Read from a CSV file
-     File file to be read
-     Determine if Graph is Directed or Undirected
-     Read first line
-        If line contains UN or un or Un
-        graph directed is false
-     Read second line
-     Read vertex list
-        While line is not equal to null
-            csvIntTemp equals new ArrayList
-            separated by “,”
-            for x : values add parseInt
-     catch exception ignored
-        throw InvalidDataFileException
-     Construct matrix
-     List as a new ArrayList
-        for l : csv
-            integers equal to new Array
-            add integers to list
-     Create adjacency matrix with the list
-     Check for errors
-     If size of vertices  is 0
-        Throw new InvalidDataFileException
-     Set graph matrix to adjacencyMatrix
-     Set graph vertex list to vertices
-     Return graph
-    */
+    
     public Graph parseCSV(File file) throws InvalidDataFileException {
         Graph graph = new Graph();
         Integer[][] adjacencyMatrix;
